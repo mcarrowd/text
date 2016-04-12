@@ -359,7 +359,10 @@ func getWHATWG(url string) string {
 		if 0x80 <= y && y < 0xa0 {
 			// We diverge from the WHATWG spec by mapping control characters
 			// in the range [0x80, 0xa0) to U+FFFD.
-			continue
+			// Except windows-1251 to allow reverse-encode strings with corrupted windows-1251 charset
+			if url != "http://encoding.spec.whatwg.org/index-windows-1251.txt" {
+				continue
+			}
 		}
 		mapping[x] = rune(y)
 	}
